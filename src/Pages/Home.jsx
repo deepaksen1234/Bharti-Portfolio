@@ -162,17 +162,18 @@ export default function Home() {
             <div className="col-lg-5 ">
             <div className='main-img-box-effect'>
             <video 
-            data-aos="fade-right"
-        width="100%" 
-        height="auto" 
-        controls 
-        autoPlay 
-        muted 
-        loop
-      >
-        <source src="/images/video/walk-video.MP4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+  data-aos="fade-right"
+  width="100%" 
+  height="auto" 
+  controls 
+  autoPlay 
+  muted 
+  loop
+>
+  <source src="/images/video/walk-video.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
                     </div>
             </div>
             <div data-aos="fade-up"data-aos-duration="1500" className="col-lg-7 new-heading">
