@@ -4,7 +4,6 @@ import img2 from '../../public/images/img-39.jpg';
 import img4 from '../../public/images/img-17.jpg';
 import img6 from '../../public/images/img-172.jpg';
 import img5 from '../../public/images/img-2222.jpg';
-import video from '../../public/images/video/walk-video.MP4';
 import Navbar from '../Pages/Navbar';
 import ImageGallerySlider from './Imageslider';
 import Footer from './Footer';
@@ -171,7 +170,7 @@ export default function Home() {
         muted 
         loop
       >
-        <source src={video} type="video/mp4" />
+        <source src="/images/video/walk-video.MP4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
                     </div>
