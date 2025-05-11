@@ -1,0 +1,812 @@
+body {
+    font-family: 'Old Standard TT', serif;
+    background-color: #FAF4F4;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
+  .padding-related{
+    padding-top: 100px;
+  }
+  .baner-heading{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0px 20px;
+  }
+  .baner-heading h1{
+    font-size: 48px;
+    line-height: 65px;
+  }
+  .main-btn{
+    padding: 15px 30px;
+    border-radius: 10px;
+    background-color: black;
+    color:white;
+    border: none;
+  }
+  .main-img-box-effect{
+    overflow: hidden;
+    height: 110vh;
+  }
+  
+  .main-img-box-effect img {
+    transition: transform 3s ease;
+    width: 100%; /* Smooth zoom effect */
+  }
+  
+  .main-img-box-effect:hover img {
+    transform: scale(1.1); /* Zooms in 10% */
+  }
+  .new-heading h1{
+    font-size: 48px;
+    line-height: 50px;
+  }
+  .new-heading{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0px 20px;
+  }
+  .header-title-text a{
+    font-family: "Old Standard TT", serif;
+    color: rgb(16, 16, 16);
+    font-size: 24px;
+    font-weight: 400;
+    fill: rgb(16, 16, 16);
+    letter-spacing: 0.01em;
+  }
+  .main-bar-div{
+    padding: 8px 20px;
+    position: fixed;
+    margin-top: 10px;
+    border-radius: 25px;
+    background-color: white;
+    z-index: 50;
+  }
+  .navbar-section li .nav-1{
+    position: relative; 
+    display: inline-block; 
+    padding-bottom: 2px; 
+    transition: color 0.3s ease; 
+  }
+  
+  .navbar-section li .nav-1::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color:black; 
+    transition: width 0.3s ease; 
+  }
+  .about-nav-bar{
+    padding-bottom: 4px;
+    border-bottom: 2px solid black;
+  }
+  
+  .navbar-section li a:hover::before {
+    width: 100%; 
+  }
+  
+  
+  
+  /* In App.css or your custom stylesheet */
+.slick-slide img {
+  width: 100%;
+  height: auto;
+}
+
+
+
+
+
+/* slider code */
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(212, 210, 210);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.preloader-counter {
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 3rem;
+  color: rgb(212, 210, 210);
+  opacity: 1;
+}
+
+.preloader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Main container */
+.container-slider-related {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Grid layout */
+.grid-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.grid-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-item-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Target image (5th image) */
+.grid-item.target {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Slide layers - stacking order is important */
+/* Base layer - current slide */
+.slider-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 80;
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Background parallax layer */
+.slider-image-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 110%;
+  height: 110vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 85; /* Higher than base layer */
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform;
+  transform-origin: center;
+}
+
+/* Top layer - next slide */
+.slider-image-next {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 90; /* Highest z-index to always appear on top */
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform;
+  transform-origin: center;
+}
+
+/* Transition overlay */
+.transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  z-index: 95;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity;
+}
+
+/* Content area */
+.content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0;
+  padding: 10% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.content-title {
+  text-align: left;
+  font-family: "PP Neue Montreal", sans-serif;
+  font-size: 5rem;
+  color: #f0f0f0;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.content-title span {
+  display: block;
+  transform: translateY(100%);
+}
+
+/* Simple paragraph styling */
+.content-paragraph {
+  text-align: left;
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 1rem;
+  color: #f0f0f0;
+  max-width: 600px;
+  line-height: 1.3;
+  margin-bottom: 10%;
+  opacity: 0; /* Start hidden */
+}
+
+
+/* Switch buttons */
+.switch {
+  position: relative;
+  bottom: 20px;
+  width: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  background: #222;
+  padding: 10px 20px;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: padding 0.3s ease-in-out;
+}
+
+.switch-button {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 14px;
+  padding: 5px 10px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.switch-button-current {
+  color: #f0f0f0;
+}
+
+/* Indicator dot - smaller and closer to text */
+.indicator-dot {
+  position: absolute;
+  width: 5px; /* Smaller dot */
+  height: 5px; /* Smaller dot */
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.switch-button-grid .indicator-dot {
+  left: -8px; /* Closer to text */
+}
+
+.switch-button-slider .indicator-dot {
+  right: -8px; /* Closer to text */
+}
+
+.switch-button:hover .indicator-dot {
+  opacity: 1;
+}
+
+ 
+
+
+
+
+.about-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../images/img-17.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 50px 20px;
+  min-height: 100vh;
+  position: relative;
+}
+.about-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  transition: background-color 0.3s ease-in-out; 
+}
+
+.about-section:hover::after {
+  background-color: rgba(0, 0, 0, 0.7); 
+}
+
+.about-content {
+  background-color: #ffffff2e;
+  color: #fff;
+  padding: 40px;
+  margin-right: 20px;
+  width: 100%;
+  z-index: 2;
+  position: relative;
+}
+
+.about-image-container {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.about-image-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+
+
+.image-wrapper:hover .img-fluid {
+  transform: scale(1.1); /* Zoom effect */
+  filter: brightness(1.2); /* Slight brightness increase on hover */
+}
+
+.image-wrapper:hover .img-fluid {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Apply shadow on hover */
+}
+
+.hover-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.image-wrapper:hover .hover-svg {
+  opacity: 1;
+  animation: svgAnimation 2s ease-out infinite;
+}
+
+@keyframes svgAnimation {
+  0% {
+    transform: scale(0) rotate(0deg);
+    stroke-width: 2;
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2) rotate(45deg);
+    stroke-width: 4;
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    stroke-width: 2;
+    opacity: 0;
+  }
+}
+
+.hover-svg circle {
+  fill: none;
+  stroke: #ff6347; /* You can change the color of the SVG circle */
+  stroke-width: 2;
+  transition: stroke-width 0.3s ease, opacity 0.3s ease;
+}
+
+.about-subtitle {
+  font-size: 20px;
+  color: #cccccc;
+  margin-bottom: 10px;
+}
+
+.about-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.about-description {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+
+
+.about-button:hover {
+  background-color: #555;
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+}
+
+.contact-banner-bg {
+  position: relative; 
+  background-image: url(../images/img-69.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+  z-index: 1; 
+}
+
+.contact-banner-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1; 
+}
+
+@media (max-width:576px){
+  .main-img-box-effect {
+    height: auto;
+}
+.mobileside-bar{
+  width: 60% !important;
+  background-color: #FAF4F4;
+}
+.content{
+  display: none;
+}
+}
+
+
+
+
+
+.contact-form-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.contact-form-title {
+  font-size: 1.8rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form-field {
+  margin-bottom: 15px;
+}
+
+.contact-form-label {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.contact-form-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.contact-form-input:focus {
+  outline: none;
+  border-color: #000;
+  background-color: #fff;
+}
+
+.contact-form-btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form-btn:hover {
+  background-color: #333;
+}
+
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Thumbnails */
+/* .thumbnails {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 200;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: border 0.3s ease;
+}
+
+.thumbnail-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.thumbnail:hover {
+  border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.thumbnail.active {
+  border: 2px solid #fff;
+}
+
+@media (max-width: 768px) {
+  .thumbnails {
+    bottom: 10px; 
+    right: 10px;
+  }
+
+  .thumbnail {
+    width: 45px; 
+    height: 45px;
+  }
+
+ 
+} */
+
+/* Styles for the thumbnail slider container (mobile specific) */
+ .mobile-thumbnails-container {
+  position: fixed; 
+  bottom: 0; 
+  /* left: 0; */
+  width: 100%;
+  z-index: 1000; 
+  padding: 10px 0;
+  overflow-x: auto; 
+  overflow-y: hidden; 
+}
+@media (min-width:800px){
+  .mobile-thumbnails-container{
+    width: 40%;
+    right: 5px;
+  } 
+}
+
+.mobile-thumbnail-swiper-container {
+  width: 100%;
+}
+
+.mobile-thumbnail-swiper-slide {
+  width: auto; 
+  margin-right: 10px;
+}
+
+.mobile-thumbnail-swiper-slide:last-child {
+  margin-right: 0;
+}
+
+.mobile-thumbnail-item { 
+  width: 60px;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.6;
+  transform: translateY(20px);
+  transition: border 0.3s ease;
+  flex-shrink: 0; 
+}
+@media (max-width:600px){
+  .mobile-thumbnail-item{
+    width: 60px;
+    height: 50px;
+  }
+}
+
+.mobile-thumbnail-item.active {
+  opacity: 1;
+  border: 2px solid white;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.mobile-thumbnail-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+
+.mobile-thumbnail-swiper-button-prev,
+.mobile-thumbnail-swiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.mobile-thumbnail-swiper-button-prev:hover,
+.mobile-thumbnail-swiper-button-next:hover {
+  opacity: 1;
+}
+
+.mobile-thumbnail-swiper-button-prev {
+  left: 10px;
+}
+
+.mobile-thumbnail-swiper-button-next {
+  right: 10px;
+}
+
+.mobile-thumbnail-swiper-button-prev svg,
+.mobile-thumbnail-swiper-button-next svg {
+  font-size: 20px;
+}
+
+
+.desktop-thumbnails-grid {
+  display: flex;
+  margin-top: 20px;
+}
+
+.desktop-thumbnail-grid-item { 
+  height: 80px;
+  margin-right: 10px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.desktop-thumbnail-grid-item.active {
+  opacity: 1;
+}
+
+.desktop-thumbnail-grid-item:last-child {
+  margin-right: 0;
+}
+
+.desktop-thumbnail-grid-image { 
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+} 
+
+.second-slider-grid{
+  position: absolute;
+}
+
+
+/* 
+@media (max-width:600px){
+  .second-slider-grid{
+    display: block;
+  }
+  .first-slider-grid{
+    display: none;
+  }
+}
+@media (min-width:700px){
+  .second-slider-grid{
+    display: none;
+  }
+  .first-slider-grid{
+    display: block;
+  }
+
+} */
